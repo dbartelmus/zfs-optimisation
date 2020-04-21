@@ -7,6 +7,12 @@ fi
 ######################## SAFETY END
 
 ########################
+######## Description of variables and vars use cases
+########################
+# take care and make all changes wisely!!!
+# https://github.com/openzfs/zfs/wiki/ZFS-on-Linux-Module-Parameters
+
+########################
 ######## status commands
 ########################
 
@@ -78,10 +84,12 @@ nano /etc/modprobe.d/zfs.conf
 options zfs l2arc_noprefetch=0
 
 # Maximum number of bytes to be written to each cache device for each L2ARC feed thread interval (see l2arc_feed_secs). The actual limit can be adjusted by l2arc_write_boost. By default l2arc_feed_secs is 1 second, delivering a maximum write workload to cache devices of 8 MiB/sec.
-# 8388608 / 1024 / 1024 = 8 MiB/s
-# When to change: https://github.com/openzfs/zfs/wiki/ZFS-on-Linux-Module-Parameters#l2arc_write_max
-options zfs l2arc_write_max=8388608
-options zfs l2arc_write_boost=8388608
+# default: 8388608 / 1024 / 1024 = 8 MiB/s
+# max: 50331648 / 1024 / 1024 = 48 MiB/s
+# boosted if cache cold: 100663296 = 96 MiB/s
+
+options zfs l2arc_write_max=50331648
+options zfs l2arc_write_boost=100663296
 
 
 ########################
