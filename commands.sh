@@ -1,7 +1,7 @@
 ######################## SAFETY START
 if [[ $EUID -eq 0 ]]; then
     error "Do not run this as the root user"
-    echo "This is not intended to be run as bulk bash commands"
+    echo "This is not intended to be run as bulk bash commands. Read the file using editor nano or cat and apply commands one by one."
     exit 1
 fi
 ######################## SAFETY END
@@ -58,6 +58,7 @@ zpool status zpool-name-here
 zfs get all zpool-name-here
 
 # 'sync' - disabled means that data gets synced either every 5 seconds or every 64M IIRC. If you're willing to risk the last ~5 seconds you can run with this.
+# UPS as backup power should avoid transaction loss in case of power outage
 zfs set sync=disabled zpool-name-here
 
 # 'axttr' - you can use the xattr property to disable or enable extended attributes for a specific ZFS file system. The default value is on
@@ -70,13 +71,15 @@ zfs set secondarycache=all
 ######## ZFS L2ARC optimisation
 ########################
 
-# bellow optimization commands need to be inside zfs.conf file. It's probably empty by default
+# bellow optimization commands need to be inside zfs.conf file. It's probably empty by default so edit:
 nano /etc/modprobe.d/zfs.conf
 
 # l2arc_noprefetch' enables (0/zero is not a mistake) L2ARC prefetching - read stream from pool is cached inside L2ARC so this acts as aggressive cache method. Usefull when you have relatively large L2ARC device and enough RAM for standard ARC.
 options zfs l2arc_noprefetch=0
 
-# 
+# Maximum number of bytes to be written to each cache device for each L2ARC feed thread interval (see l2arc_feed_secs). The actual limit can be adjusted by l2arc_write_boost. By default l2arc_feed_secs is 1 second, delivering a maximum write workload to cache devices of 8 MiB/sec.
+# 8388608 / 1024 / 1024 = 8 MiB/s
+# When to change: https://github.com/openzfs/zfs/wiki/ZFS-on-Linux-Module-Parameters#l2arc_write_max
 options zfs l2arc_write_max=8388608
 options zfs l2arc_write_boost=8388608
 
