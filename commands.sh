@@ -96,3 +96,9 @@ nano /etc/sysctl.conf
 
 # step 1b )
 vm.swappiness=10
+
+########################
+######## reboot to changes take place
+########################
+
+reboot
