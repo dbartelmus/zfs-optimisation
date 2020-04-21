@@ -1,4 +1,4 @@
-# zfs-optimisation
+# :rocket: zfs-optimisation :rocket:
 List of steps for ZFS filesystem (pools) optimization. Also in regards to L2ARC
 
 # How to create good ZFS performance?
@@ -6,13 +6,16 @@ Please read, read and read about it. There is plenty of discussion on the forums
 
 Well built architecture of file system based on ZFS is not so simple, take your pool size, available RAM and data usage case into considiration.
 
-# Enviroment
+# Complex source of variables description
+https://github.com/openzfs/zfs/wiki/ZFS-on-Linux-Module-Parameters
+
+# Commands based on enviroment
 Commands used here were tested and applied on budget:
-- Proxmox
+- Proxmox (so config location may vary)
 - small ZFS pool with SSD on main pool
 - Intel PCIe NVMe as L2ARC
 - 72GB RAM (default ARC limit)
-- lz4 compression turned on
+- 'lz4' compression turned on
 
 # Fell free to contribute
 If you want to contribute, just comment, pull request or reach me by message.
