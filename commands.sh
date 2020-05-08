@@ -23,6 +23,8 @@ zfs list
 zpool status
 # certain pool status
 zpool status zpool-name-here
+# arc statistics
+arc_summary
 
 ########################
 ######## add L2ARC cache disk (SSD or NVMe) to zpool
@@ -110,3 +112,9 @@ vm.swappiness=10
 ########################
 
 reboot
+
+########################
+######## analyze (list) arc statistic (ARC and L2ARC + tunable commands)
+########################
+
+arc_summary
