@@ -73,7 +73,10 @@ zfs set sync=disabled zpool-name-here
 zfs set xattr=sa zpool-name-here
 
 # 'secondarycache' - (L2ARC) - if set to 'all', both user data and metadata are cached. If set to 'none', neither user data nor metadata is cached. If set to 'metadata', only metadata is cached.
-zfs set secondarycache=all
+zfs set secondarycache=all zpool-name-here
+
+# 'atime' - will disable writing timestamp of access to file on read - leave on when you want to know where you access file
+zfs set atime=off zpool-name-here
 
 ########################
 ######## ZFS L2ARC optimisation
